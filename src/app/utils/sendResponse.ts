@@ -8,12 +8,14 @@ type TResponse<T> = {
   meta?: Record<string, unknown>;
 };
 
-const sendResponse = <T>(res: Response, data: TResponse<T>) => {
-  return res.status(data.status).json({
-    success: data.success,
-    status: data.status,
-    message: data?.message || '',
-    data: data.data,
+const sendResponse = <T>(res: Response, payload: TResponse<T>) => {
+  const { status, success, message, data, meta } = payload;
+  return res.status(status).json({
+    success: success,
+    status: status,
+    message: message ?? (status === 200 || status === 201 ? 'Success' : ''),
+    data: data,
+    ...(meta && { meta }),
   });
 };
 

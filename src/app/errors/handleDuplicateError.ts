@@ -1,19 +1,20 @@
-import { TErrorResponse } from '../interface/error.interface';
+import { Prisma } from '@prisma/client';
+import { TErrorResponse, TSources } from '../interface/error.interface';
 
-const handleDuplicateError = (err: any): TErrorResponse => {
-  const sources = Object.entries(err?.keyValue).map((val) => {
-    const [key, value] = val;
-    return {
-      path: key || '',
-      message: `${value} is already exists`,
-    };
-  });
-
-  const status = 400;
+const handleDuplicateError = (
+  err: Prisma.PrismaClientKnownRequestError
+): TErrorResponse => {
+  const status = 409;
+  const message = (err.message as string) || 'Duplicate entry';
+  const targets = (err.meta?.target as string[]) || ['unknown'];
+  const sources : TSources = targets.map((field) => ({
+    path: field,
+    message: `${field} already exists`,
+  }));
 
   return {
     status,
-    message: 'Invalid ID',
+    message,
     sources,
   };
 };

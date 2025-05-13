@@ -1,17 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
+import { Prisma } from '@prisma/client';
 import { ErrorRequestHandler } from 'express';
 import { ZodError } from 'zod';
 import AppError from '../builder/AppError';
 import config from '../config';
-import handleCastError from '../errors/handleCastError';
 import handleDuplicateError from '../errors/handleDuplicateError';
 import handleValidationError from '../errors/handleValidationError';
 import handleZodError from '../errors/handleZodError';
 import { TSources } from '../interface/error.interface';
 
-const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
-  //setting default values
+const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
   let status = 500;
   let message = 'Something went wrong!';
   let sources: TSources = [
@@ -26,17 +25,12 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
     status = simplifiedError?.status;
     message = simplifiedError?.message;
     sources = simplifiedError?.sources;
-  } else if (error?.name === 'ValidationError') {
+  } else if (error instanceof Prisma.PrismaClientValidationError) {
     const simplifiedError = handleValidationError(error);
     status = simplifiedError?.status;
     message = simplifiedError?.message;
     sources = simplifiedError?.sources;
-  } else if (error?.name === 'CastError') {
-    const simplifiedError = handleCastError(error);
-    status = simplifiedError?.status;
-    message = simplifiedError?.message;
-    sources = simplifiedError?.sources;
-  } else if (error?.code === 11000) {
+  } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
     const simplifiedError = handleDuplicateError(error);
     status = simplifiedError?.status;
     message = simplifiedError?.message;
@@ -70,4 +64,4 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   });
 };
 
-export default globalErrorHandler;
+export default errorHandler;

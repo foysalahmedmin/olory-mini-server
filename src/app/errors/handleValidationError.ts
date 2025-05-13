@@ -1,26 +1,24 @@
-import mongoose from 'mongoose';
+import { Prisma } from '@prisma/client';
 import {
   TErrorResponse,
   TSources,
 } from '../interface/error.interface';
 
 const handleValidationError = (
-  err: mongoose.Error.ValidationError,
+  err: Prisma.PrismaClientValidationError,
 ): TErrorResponse => {
-  const sources: TSources = Object.values(err.errors).map(
-    (val: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
-      return {
-        path: val?.path,
-        message: val?.message,
-      };
-    },
-  );
-
   const status = 400;
+  const message = (err.message as string) || 'Validation Error';
+  const sources: TSources = [
+    {
+      path: '',
+      message,
+    },
+  ];
 
   return {
     status,
-    message: 'Validation Error',
+    message,
     sources,
   };
 };
