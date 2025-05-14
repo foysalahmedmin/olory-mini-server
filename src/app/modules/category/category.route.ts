@@ -6,29 +6,13 @@ import * as CategoryValidations from './category.validation';
 
 const router = express.Router();
 
-router.get(
-  '/',
-  auth('admin', 'user', 'customer'),
-  CategoryControllers.getCategories,
-);
+router.get('/', CategoryControllers.getCategories);
 
-router.get(
-  '/with-products',
-  auth('admin', 'user', 'customer'),
-  CategoryControllers.getCategoriesWithProducts,
-);
+router.get('/with-products', CategoryControllers.getCategoriesWithProducts);
 
-router.get(
-  '/:id',
-  auth('admin', 'user', 'customer'),
-  CategoryControllers.getCategory,
-);
+router.get('/:id', CategoryControllers.getCategory);
 
-router.get(
-  '/:id/with-products',
-  auth('admin', 'user', 'customer'),
-  CategoryControllers.getCategoryWithProducts,
-);
+router.get('/:id/with-products', CategoryControllers.getCategoryWithProducts);
 
 router.post(
   '/',
