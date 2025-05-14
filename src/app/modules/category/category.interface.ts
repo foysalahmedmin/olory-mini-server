@@ -1,9 +1,9 @@
-import { Product } from '../product/product.interface';
+import { TProduct } from '../product/product.interface';
 
 export interface Category {
   id: number;
   name: string;
-  products?: Product[];
+  products?: TProduct[];
   createdAt: Date;
   updatedAt: Date;
 }

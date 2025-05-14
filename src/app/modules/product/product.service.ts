@@ -1,5 +1,5 @@
 import prisma from '../../../prisma/client';
-import { TProductQuery } from './product.interface';
+import { TProduct, TProductQuery } from './product.interface';
 
 export const getProducts = async (filters: TProductQuery) => {
   const { category, minPrice, maxPrice, rating, search } = filters;
@@ -25,7 +25,7 @@ export const getProduct = async (id: number) => {
   });
 };
 
-export const createProduct = async (data: any) => {
+export const createProduct = async (data: TProduct) => {
   return await prisma.product.create({ data });
 };
 

@@ -11,7 +11,7 @@ type TFile = {
   folder: string;
 };
 
-const fileUpload = (files: TFile[] = []) => {
+const file = (files: TFile[] = []) => {
   const storage = multer.diskStorage({
     destination: (_req, file, cb) => {
       const folder =
@@ -84,4 +84,4 @@ const fileUpload = (files: TFile[] = []) => {
   });
 };
 
-export default fileUpload;
+export default file;

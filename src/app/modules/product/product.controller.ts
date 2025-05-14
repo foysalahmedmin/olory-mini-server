@@ -28,7 +28,10 @@ export const getProduct = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const createProduct = catchAsync(async (req: Request, res: Response) => {
-  const result = await ProductService.createProduct(req.body);
+  const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+  const thumbnail = files.thumbnail?.[0];
+  const payload = { ...req.body, thumbnail };
+  const result = await ProductService.createProduct(payload);
 
   sendResponse(res, {
     status: 201,

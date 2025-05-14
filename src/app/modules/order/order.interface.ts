@@ -1,5 +1,5 @@
 import { Customer } from '../customer/customer.interface';
-import { Product } from '../product/product.interface';
+import { TProduct } from '../product/product.interface';
 
 export interface Order {
   id: number;
@@ -18,5 +18,5 @@ export interface OrderItem {
   quantity: number;
   price: number;
   order?: Order;
-  product?: Product;
+  product?: TProduct;
 }

@@ -1,9 +1,10 @@
 import { Category } from '../category/category.interface';
 import { OrderItem } from '../order/order.interface';
 
-export interface Product {
+export interface TProduct {
   id: number;
   name: string;
+  thumbnail?: string;
   description?: string;
   price: number;
   rating: number;
