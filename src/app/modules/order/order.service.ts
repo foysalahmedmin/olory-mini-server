@@ -1,20 +1,21 @@
+import { Session } from 'express-session';
 import prisma from '../../../prisma/client';
-import { CartItem } from '../cart/cart.interface';
 
-export const placeOrder = async (customerId: number, cartItems: CartItem[]) => {
-  if (!cartItems.length) throw new Error('Cart is empty');
+export const checkout = async (session: Session, customerId: number) => {
+  const cart = session.cart || [];
+  if (!cart.length) throw new Error('Cart is empty');
 
-  const totalAmount = cartItems.reduce(
+  const totalAmount = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0,
   );
 
-  return await prisma.order.create({
+  const result = await prisma.order.create({
     data: {
       customerId,
       totalAmount,
       items: {
-        create: cartItems.map((item) => ({
+        create: cart.map((item) => ({
           productId: item.productId,
           quantity: item.quantity,
           price: item.price,
@@ -23,4 +24,25 @@ export const placeOrder = async (customerId: number, cartItems: CartItem[]) => {
     },
     include: { items: true },
   });
+
+  if (!result) throw new Error('Failed to create order');
+  session.cart = [];
+
+  return result;
+};
+
+export const getOrders = async () => {
+  const result = await prisma.order.findMany({ include: { items: true } });
+  return result;
+};
+
+export const getOrder = async (id: number) => {
+  return await prisma.order.findUnique({
+    where: { id },
+    include: { items: true },
+  });
+};
+
+export const deleteOrder = async (id: number) => {
+  return await prisma.order.delete({ where: { id } });
 };

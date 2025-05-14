@@ -8,15 +8,17 @@ datasource db {
 }
 
 model User {
-  id                     Int      @id @default(autoincrement())
+  id                     Int       @id @default(autoincrement())
   name                   String 
-  email                  String   @unique
+  email                  String    @unique
   password               String
-  role                   Role     @default(user)
-  status                 Status   @default(inProgress)
-  isDeleted              Boolean  @default(false)
-  createdAt              DateTime @default(now()) 
-  updatedAt              DateTime @default(now()) @updatedAt
+  role                   Role      @default(user)
+  status                 Status    @default(inProgress)
+  isDeleted              Boolean   @default(false)
+  createdAt              DateTime  @default(now()) 
+  updatedAt              DateTime  @default(now()) @updatedAt
+
+  customer               Customer?
 
   @@map("users")
 }
@@ -56,6 +58,8 @@ model Product {
 
 model Customer {
   id        Int       @id @default(autoincrement())
+  userId    Int       @unique
+  user      User      @relation(fields: [userId], references: [id])
   name      String
   email     String    @unique
   phone     String?
