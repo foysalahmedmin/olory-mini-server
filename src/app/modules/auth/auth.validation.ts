@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
-export const signinValidationSchema = z.object({
+export const signinSchema = z.object({
   body: z.object({
     email: z.string(),
     password: z.string().min(6).max(12),
   }),
 });
 
-export const signupValidationSchema = z.object({
+export const signupSchema = z.object({
   body: z.object({
     name: z.string(),
     email: z.string(),
@@ -16,13 +16,13 @@ export const signupValidationSchema = z.object({
   }),
 });
 
-export const refreshTokenValidationSchema = z.object({
+export const refreshTokenSchema = z.object({
   cookies: z.object({
     refresh_token: z.string(),
   }),
 });
 
-export const changePasswordValidationSchema = z.object({
+export const changePasswordSchema = z.object({
   body: z
     .object({
       current_password: z.string().min(6).max(12),
@@ -33,13 +33,13 @@ export const changePasswordValidationSchema = z.object({
     }),
 });
 
-export const forgetPasswordValidationSchema = z.object({
+export const forgetPasswordSchema = z.object({
   body: z.object({
     email: z.string(),
   }),
 });
 
-export const resetPasswordValidationSchema = z.object({
+export const resetPasswordSchema = z.object({
   body: z.object({
     email: z.string(),
     password: z.string().min(6).max(12),

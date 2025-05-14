@@ -8,31 +8,31 @@ const router = express.Router();
 
 router.post(
   '/signin',
-  validateRequest(AuthValidations.signinValidationSchema),
+  validateRequest(AuthValidations.signinSchema),
   AuthControllers.signIn,
 );
 
 router.post(
   '/refresh-token',
-  validateRequest(AuthValidations.refreshTokenValidationSchema),
+  validateRequest(AuthValidations.refreshTokenSchema),
   AuthControllers.refreshToken,
 );
 
 router.patch(
   '/change-password',
-  auth('admin', 'student', 'faculty'),
-  validateRequest(AuthValidations.changePasswordValidationSchema),
+  auth('user', 'customer', 'admin'),
+  validateRequest(AuthValidations.changePasswordSchema),
   AuthControllers.changePassword,
 );
 
 router.post(
   '/forget-password',
-  validateRequest(AuthValidations.forgetPasswordValidationSchema),
+  validateRequest(AuthValidations.forgetPasswordSchema),
   AuthControllers.forgetPassword,
 );
 
 router.patch(
   '/reset-password',
-  validateRequest(AuthValidations.resetPasswordValidationSchema),
+  validateRequest(AuthValidations.resetPasswordSchema),
   AuthControllers.resetPassword,
 );

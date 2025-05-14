@@ -1,33 +1,71 @@
 import { Request, Response } from 'express';
+import catchAsync from '../../utils/catchAsync';
+import sendResponse from '../../utils/sendResponse';
 import * as CustomerService from './customer.service';
 
-export const createCustomer = async (req: Request, res: Response) => {
-  const userId = req.user?.id as number;
-  const payload = req.body;
-  const result = await CustomerService.createCustomer(userId, payload);
-  res.status(201).json(result);
-};
+export const createCustomer = catchAsync(
+  async (req: Request, res: Response) => {
+    const userId = req.user?.id as number;
+    const payload = req.body;
+    const result = await CustomerService.createCustomer(userId, payload);
 
-export const getCustomers = async (req: Request, res: Response) => {
+    sendResponse(res, {
+      status: 201,
+      success: true,
+      message: 'Customer created successfully',
+      data: result,
+    });
+  },
+);
+
+export const getCustomers = catchAsync(async (req: Request, res: Response) => {
   const result = await CustomerService.getCustomers();
-  res.status(200).json(result);
-};
 
-export const getCustomer = async (req: Request, res: Response) => {
+  sendResponse(res, {
+    status: 200,
+    success: true,
+    message: 'Customers retrieved successfully',
+    data: result,
+  });
+});
+
+export const getCustomer = catchAsync(async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   const result = await CustomerService.getCustomer(id);
-  res.status(200).json(result);
-};
 
-export const updateCustomer = async (req: Request, res: Response) => {
-  const id = parseInt(req.params.id);
-  const payload = req.body;
-  const result = await CustomerService.updateCustomer(id, payload);
-  res.status(200).json(result);
-};
+  sendResponse(res, {
+    status: 200,
+    success: true,
+    message: 'Customer retrieved successfully',
+    data: result,
+  });
+});
 
-export const deleteCustomer = async (req: Request, res: Response) => {
-  const id = parseInt(req.params.id);
-  await CustomerService.deleteCustomer(id);
-  res.status(204).end();
-};
+export const updateCustomer = catchAsync(
+  async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id);
+    const payload = req.body;
+    const result = await CustomerService.updateCustomer(id, payload);
+
+    sendResponse(res, {
+      status: 200,
+      success: true,
+      message: 'Customer updated successfully',
+      data: result,
+    });
+  },
+);
+
+export const deleteCustomer = catchAsync(
+  async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id);
+    await CustomerService.deleteCustomer(id);
+
+    sendResponse(res, {
+      status: 204,
+      success: true,
+      message: 'Customer deleted successfully',
+      data: null,
+    });
+  },
+);

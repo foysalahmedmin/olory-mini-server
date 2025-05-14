@@ -1,12 +1,5 @@
 import { Category } from '../category/category.interface';
-
-export interface OrderItem {
-  id: number;
-  quantity: number;
-  createdAt: Date;
-  updatedAt: Date;
-  [key: string]: any;
-}
+import { OrderItem } from '../order/order.interface';
 
 export interface Product {
   id: number;
