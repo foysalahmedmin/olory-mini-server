@@ -10,7 +10,6 @@ export const signinValidationSchema = z.object({
 export const signupValidationSchema = z.object({
   body: z.object({
     name: z.string(),
-    phone: z.string(),
     email: z.string(),
     password: z.string().min(6).max(12),
     role: z.enum(['user', 'admin']).optional(),

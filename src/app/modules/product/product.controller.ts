@@ -2,7 +2,13 @@ import { Request, Response } from 'express';
 import * as ProductService from './product.service';
 
 export const getProducts = async (req: Request, res: Response) => {
-  const result = await ProductService.getAllProducts(req.query);
+  const result = await ProductService.getProducts(req.query);
+  res.json(result);
+};
+
+export const getProduct = async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  const result = await ProductService.getProduct(id);
   res.json(result);
 };
 

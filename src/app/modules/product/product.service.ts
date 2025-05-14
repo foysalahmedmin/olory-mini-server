@@ -1,7 +1,7 @@
 import prisma from '../../../prisma/client';
 import { TProductQuery } from './product.interface';
 
-export const getAllProducts = async (filters: TProductQuery) => {
+export const getProducts = async (filters: TProductQuery) => {
   const { category, minPrice, maxPrice, rating, search } = filters;
 
   return await prisma.product.findMany({
@@ -14,6 +14,13 @@ export const getAllProducts = async (filters: TProductQuery) => {
         search ? { name: { contains: search, mode: 'insensitive' } } : {},
       ],
     },
+    include: { category: true },
+  });
+};
+
+export const getProduct = async (id: number) => {
+  return await prisma.product.findUnique({
+    where: { id },
     include: { category: true },
   });
 };

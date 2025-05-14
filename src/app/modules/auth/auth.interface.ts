@@ -5,7 +5,6 @@ export interface TSignIn {
 
 export interface TSignUp {
   name: string;
-  phone: string;
   email: string;
   password: string;
   role?: 'user' | 'admin';
@@ -29,7 +28,6 @@ export interface TResetPassword {
 export interface TJwtPayload {
   id: number;
   name: string;
-  phone: string;
   email: string;
   role: 'user' | 'admin';
 }
