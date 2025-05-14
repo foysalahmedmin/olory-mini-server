@@ -3,7 +3,7 @@ export interface TUser {
   name: string;
   email: string;
   password: string;
-  role: 'user' | 'admin';
+  role: 'user' | 'customer' | 'admin';
   status: 'in-progress' | 'blocked';
   isDeleted: boolean;
 }

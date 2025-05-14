@@ -23,6 +23,7 @@ model User {
 
 enum Role {
   user
+  customer
   admin
 }
 

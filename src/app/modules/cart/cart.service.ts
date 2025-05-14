@@ -1,8 +1,18 @@
+import { Session } from 'express-session';
 import prisma from '../../../prisma/client';
-import { Cart } from './cart.interface';
+import { CartItem } from './cart.interface';
+
+export const getCart = async (session: Session) => {
+  const cart = session.cart || [];
+  const total = cart.reduce(
+    (sum: number, item: CartItem) => sum + item.quantity * item.price,
+    0,
+  );
+  return { items: cart, total };
+};
 
 export const addToCart = async (
-  session: any,
+  session: Session,
   { productId, quantity }: { productId: number; quantity: number },
 ) => {
   const product = await prisma.product.findUnique({ where: { id: productId } });
@@ -11,13 +21,40 @@ export const addToCart = async (
   if (!session.cart) session.cart = [];
 
   const existing = session.cart.find(
-    (item: Cart) => item.productId === productId,
+    (item: CartItem) => item.productId === productId,
   );
+
   if (existing) {
     existing.quantity += quantity;
   } else {
-    session.cart.push({ productId, quantity, price: product.price });
+    session.cart.push({
+      productId,
+      quantity,
+      price: product.price,
+    });
   }
 
-  return session.cart;
+  const total = session.cart.reduce(
+    (sum: number, item: CartItem) => sum + item.quantity * item.price,
+    0,
+  );
+
+  return { items: session.cart, total };
+};
+
+export const removeFromCart = async (session: Session, productId: number) => {
+  if (!session.cart) return { items: [], total: 0 };
+
+  const updatedCart = (session.cart as CartItem[]).filter(
+    (item) => item.productId !== productId,
+  );
+
+  session.cart = updatedCart;
+
+  const total = session.cart.reduce(
+    (sum: number, item: CartItem) => sum + item.quantity * item.price,
+    0,
+  );
+
+  return { items: session.cart, total };
 };
