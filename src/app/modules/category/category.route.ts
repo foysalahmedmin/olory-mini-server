@@ -1,6 +1,6 @@
 import express from 'express';
-import auth from '../../middlewares/auth';
-import validateRequest from '../../middlewares/validateRequest';
+import auth from '../../middlewares/auth.middleware';
+import validation from '../../middlewares/validation.middleware';
 import * as CategoryControllers from './category.controller';
 import * as CategoryValidations from './category.validation';
 
@@ -17,14 +17,14 @@ router.get('/:id/with-products', CategoryControllers.getCategoryWithProducts);
 router.post(
   '/',
   auth('admin'),
-  validateRequest(CategoryValidations.categorySchema),
+  validation(CategoryValidations.categorySchema),
   CategoryControllers.createCategory,
 );
 
 router.patch(
   '/:id',
   auth('admin'),
-  validateRequest(CategoryValidations.categorySchema.partial()),
+  validation(CategoryValidations.categorySchema.partial()),
   CategoryControllers.updateCategory,
 );
 

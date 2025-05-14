@@ -4,8 +4,8 @@ import dotenv from 'dotenv';
 import express, { Application, Request, Response } from 'express';
 import session from 'express-session';
 import config from './app/config';
-import errorHandler from './app/middlewares/errorHandler';
-import notFound from './app/middlewares/notFound';
+import error from './app/middlewares/error.middleware';
+import notfound from './app/middlewares/not-found.middleware';
 import authRouter from './app/routes';
 
 dotenv.config();
@@ -34,9 +34,9 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // Error handle;
-app.use(errorHandler);
+app.use(error);
 
-// Not found rout;
-app.use(notFound);
+// Not found handle;
+app.use(notfound);
 
 export default app;

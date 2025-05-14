@@ -1,6 +1,6 @@
 import express from 'express';
-import auth from '../../middlewares/auth';
-import validateRequest from '../../middlewares/validateRequest';
+import auth from '../../middlewares/auth.middleware';
+import validation from '../../middlewares/validation.middleware';
 import * as AuthControllers from './auth.controller';
 import * as AuthValidations from './auth.validation';
 
@@ -8,32 +8,32 @@ const router = express.Router();
 
 router.post(
   '/signin',
-  validateRequest(AuthValidations.signinSchema),
+  validation(AuthValidations.signinSchema),
   AuthControllers.signIn,
 );
 
 router.post(
   '/refresh-token',
-  validateRequest(AuthValidations.refreshTokenSchema),
+  validation(AuthValidations.refreshTokenSchema),
   AuthControllers.refreshToken,
 );
 
 router.patch(
   '/change-password',
   auth('user', 'customer', 'admin'),
-  validateRequest(AuthValidations.changePasswordSchema),
+  validation(AuthValidations.changePasswordSchema),
   AuthControllers.changePassword,
 );
 
 router.post(
   '/forget-password',
-  validateRequest(AuthValidations.forgetPasswordSchema),
+  validation(AuthValidations.forgetPasswordSchema),
   AuthControllers.forgetPassword,
 );
 
 router.patch(
   '/reset-password',
-  validateRequest(AuthValidations.resetPasswordSchema),
+  validation(AuthValidations.resetPasswordSchema),
   AuthControllers.resetPassword,
 );
 

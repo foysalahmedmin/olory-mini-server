@@ -1,6 +1,6 @@
 import express from 'express';
-import auth from '../../middlewares/auth';
-import validateRequest from '../../middlewares/validateRequest';
+import auth from '../../middlewares/auth.middleware';
+import validation from '../../middlewares/validation.middleware';
 import * as UserControllers from './user.controller';
 import * as UserValidations from './user.validation';
 
@@ -13,7 +13,7 @@ router.get('/:id', auth('admin', 'user', 'customer'), UserControllers.getUser);
 router.patch(
   '/:id',
   auth('admin'),
-  validateRequest(UserValidations.userSchema.partial()),
+  validation(UserValidations.userSchema.partial()),
   UserControllers.updateUser,
 );
 
@@ -24,7 +24,7 @@ router.get('/self', auth('admin', 'user', 'customer'), UserControllers.getSelf);
 router.patch(
   '/self',
   auth('admin', 'user', 'customer'),
-  validateRequest(UserValidations.userSchema.partial()),
+  validation(UserValidations.userSchema.partial()),
   UserControllers.updateSelf,
 );
 

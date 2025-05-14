@@ -1,6 +1,6 @@
 import express from 'express';
-import auth from '../../middlewares/auth';
-import validateRequest from '../../middlewares/validateRequest';
+import auth from '../../middlewares/auth.middleware';
+import validation from '../../middlewares/validation.middleware';
 import * as CustomerControllers from './customer.controller';
 import * as CustomerValidations from './customer.validation';
 
@@ -13,14 +13,14 @@ router.get('/:id', auth('admin', 'customer'), CustomerControllers.getCustomer);
 router.post(
   '/',
   auth('user'),
-  validateRequest(CustomerValidations.customerSchema),
+  validation(CustomerValidations.customerSchema),
   CustomerControllers.createCustomer,
 );
 
 router.patch(
   '/:id',
   auth('admin', 'customer'),
-  validateRequest(CustomerValidations.customerSchema.partial()),
+  validation(CustomerValidations.customerSchema.partial()),
   CustomerControllers.updateCustomer,
 );
 

@@ -1,8 +1,5 @@
 import { Prisma } from '@prisma/client';
-import {
-  TErrorResponse,
-  TSources,
-} from '../interface/error.interface';
+import { TErrorResponse, TSources } from '../interfaces/error.interface';
 
 const handleValidationError = (
   err: Prisma.PrismaClientValidationError,

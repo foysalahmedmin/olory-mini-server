@@ -21,7 +21,6 @@ export const isUserExist = async (id: number) => {
     select: {
       id: true,
       name: true,
-      phone: true,
       email: true,
       password: true,
       role: true,
@@ -41,7 +40,6 @@ export const isUserExistByEmail = async (email: string) => {
     select: {
       id: true,
       name: true,
-      phone: true,
       email: true,
       password: true,
       role: true,
@@ -72,7 +70,6 @@ export const signIn = async (payload: TSignIn) => {
   const jwtPayload: TJwtPayload = {
     id: user.id,
     name: user.name,
-    phone: user.phone,
     email: user.email,
     role: user.role,
   };
@@ -112,7 +109,6 @@ export const signUp = async (payload: TSignUp) => {
   const user = await prisma.user.create({
     data: {
       name: payload.name,
-      phone: payload.phone,
       email: payload.email,
       password: payload.password,
       role: payload.role,
@@ -122,7 +118,6 @@ export const signUp = async (payload: TSignUp) => {
   const jwtPayload: TJwtPayload = {
     id: user.id,
     name: user.name,
-    phone: user.phone,
     email: user.email,
     role: user.role,
   };
@@ -166,7 +161,6 @@ export const refreshToken = async (token: string) => {
   const jwtPayload: TJwtPayload = {
     id: user.id,
     name: user.name,
-    phone: user.phone,
     email: user.email,
     role: user.role,
   };
@@ -238,7 +232,6 @@ export const forgetPassword = async (payload: TForgetPassword) => {
   const jwtPayload: TJwtPayload = {
     id: user.id,
     name: user.name,
-    phone: user.phone,
     email: user.email,
     role: user.role,
   };

@@ -1,6 +1,6 @@
 import express from 'express';
-import auth from '../../middlewares/auth';
-import validateRequest from '../../middlewares/validateRequest';
+import auth from '../../middlewares/auth.middleware';
+import validation from '../../middlewares/validation.middleware';
 import * as ProductControllers from './product.controller';
 import * as ProductValidations from './product.validation';
 
@@ -13,14 +13,14 @@ router.get('/:id', ProductControllers.getProduct);
 router.post(
   '/',
   auth('admin'),
-  validateRequest(ProductValidations.productSchema),
+  validation(ProductValidations.productSchema),
   ProductControllers.createProduct,
 );
 
 router.patch(
   '/:id',
   auth('admin'),
-  validateRequest(ProductValidations.productSchema.partial()),
+  validation(ProductValidations.productSchema.partial()),
   ProductControllers.updateProduct,
 );
 

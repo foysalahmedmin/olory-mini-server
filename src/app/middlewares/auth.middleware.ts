@@ -4,6 +4,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import AppError from '../builder/AppError';
 import config from '../config';
 import { TUserRole } from '../interface';
+import { TJwtPayload } from '../modules/auth/auth.interface';
 import * as AuthServices from '../modules/auth/auth.service';
 import catchAsync from '../utils/catchAsync';
 
@@ -45,7 +46,8 @@ const auth = (...requiredRoles: TUserRole[]) => {
         'You do not have the necessary permissions to access this resource.',
       );
     }
-    req.user = decoded as JwtPayload;
+
+    req.user = decoded as TJwtPayload;
     next();
   });
 };

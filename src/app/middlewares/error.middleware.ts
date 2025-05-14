@@ -8,9 +8,9 @@ import config from '../config';
 import handleDuplicateError from '../errors/handleDuplicateError';
 import handleValidationError from '../errors/handleValidationError';
 import handleZodError from '../errors/handleZodError';
-import { TSources } from '../interface/error.interface';
+import { TSources } from '../interfaces/error.interface';
 
-const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
+const error: ErrorRequestHandler = (error, req, res, next) => {
   let status = 500;
   let message = 'Something went wrong!';
   let sources: TSources = [
@@ -64,4 +64,4 @@ const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
   });
 };
 
-export default errorHandler;
+export default error;

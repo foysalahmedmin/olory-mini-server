@@ -1,6 +1,6 @@
 import express from 'express';
-import auth from '../../middlewares/auth';
-import validateRequest from '../../middlewares/validateRequest';
+import auth from '../../middlewares/auth.middleware';
+import validation from '../../middlewares/validation.middleware';
 import * as OrderControllers from './order.controller';
 import * as OrderValidations from './order.validation';
 
@@ -13,7 +13,7 @@ router.get('/:id', auth('admin', 'customer'), OrderControllers.getOrder);
 router.post(
   '/checkout',
   auth('customer'),
-  validateRequest(OrderValidations.orderSchema),
+  validation(OrderValidations.orderSchema),
   OrderControllers.checkout,
 );
 
