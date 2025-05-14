@@ -34,28 +34,6 @@ enum Status {
   blocked
 }
 
-model Category {
-  id        Int       @id @default(autoincrement())
-  name      String    @unique
-  products  Product[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-}
-
-model Product {
-  id          Int       @id @default(autoincrement())
-  name        String
-  description String?
-  price       Float
-  rating      Float     @default(0)
-  categoryId  Int
-  category    Category  @relation(fields: [categoryId], references: [id])
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
-  orderItems  OrderItem[]
-}
-
 model Customer {
   id        Int       @id @default(autoincrement())
   userId    Int       @unique
@@ -67,6 +45,29 @@ model Customer {
   orders    Order[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
+  name        String
+  thumbnail   String?
+  description String?
+  price       Float
+  rating      Float     @default(0)
+  categoryId  Int
+  category    Category  @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  orderItems  OrderItem[]
 }
 
 model Order {
