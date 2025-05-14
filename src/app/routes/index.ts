@@ -1,32 +1,42 @@
 import express from 'express';
-import { AcademicDepartmentRoutes } from '../modules/academic-department/academic-department.route';
-import { AcademicSemesterRoutes } from '../modules/academic-semester/academic-semester.route';
-import { FacultyRoutes } from '../modules/faculty/faculty.route';
-import { StudentRoues } from '../modules/student/student.route';
-import { UserRoutes } from '../modules/user/user.route';
+import authRouter from '../modules/auth/auth.route';
+import cartRouter from '../modules/cart/cart.route';
+import categoryRouter from '../modules/category/category.route';
+import customerRouter from '../modules/customer/customer.route';
+import orderRouter from '../modules/order/order.route';
+import productRouter from '../modules/product/product.route';
+import userRouter from '../modules/user/user.route';
 
 const router = express.Router();
 
 const moduleRoutes = [
   {
+    path: '/auth',
+    route: authRouter,
+  },
+  {
     path: '/users',
-    route: UserRoutes,
+    route: userRouter,
   },
   {
-    path: '/students',
-    route: StudentRoues,
+    path: '/customer',
+    route: customerRouter,
   },
   {
-    path: '/faculties',
-    route: FacultyRoutes,
+    path: '/cart',
+    route: cartRouter,
   },
   {
-    path: '/academic-semesters',
-    route: AcademicSemesterRoutes,
+    path: '/category',
+    route: categoryRouter,
   },
   {
-    path: '/academic-departments',
-    route: AcademicDepartmentRoutes,
+    path: '/product',
+    route: productRouter,
+  },
+  {
+    path: '/order',
+    route: orderRouter,
   },
 ];
 

@@ -6,7 +6,7 @@ import session from 'express-session';
 import config from './app/config';
 import errorHandler from './app/middlewares/errorHandler';
 import notFound from './app/middlewares/notFound';
-import router from './app/routes';
+import authRouter from './app/routes';
 
 dotenv.config();
 const app: Application = express();
@@ -27,7 +27,7 @@ app.use(
     },
   }),
 );
-app.use('/api/v1', router);
+app.use('/api/v1', authRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Welcome to olory-mini server!');
