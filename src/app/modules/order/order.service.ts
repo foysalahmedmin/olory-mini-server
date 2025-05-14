@@ -5,15 +5,12 @@ export const checkout = async (session: Session, customerId: number) => {
   const cart = session.cart || [];
   if (!cart.length) throw new Error('Cart is empty');
 
-  const totalAmount = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0,
-  );
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const result = await prisma.order.create({
     data: {
       customerId,
-      totalAmount,
+      total,
       items: {
         create: cart.map((item) => ({
           productId: item.productId,

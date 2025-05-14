@@ -5,7 +5,7 @@ export interface Order {
   id: number;
   customerId: number;
   customer?: Customer;
-  totalAmount: number;
+  total: number;
   createdAt: Date;
   updatedAt: Date;
   items?: OrderItem[];
