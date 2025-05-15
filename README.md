@@ -22,15 +22,15 @@ vercel --prod
 
 -->
 
-# Olory-mini
+# OLORY MINI (<a href="https://olory-mini-server.vercel.app/">Server URL</a>)
 
-Olory-mini is a lightweight e-commerce backend API built with **Node.js**, **Express**, **TypeScript**, and **Prisma**. It supports user authentication, product and category management, customer orders, and more, powered by a MySQL database.
+Olory-mini is a lightweight e-commerce backend API built with **Node.js**, **Express**, **TypeScript**, and **Prisma**. It supports user authentication, product and category management, customer orders, and more, powered by a **MySQL** database.
 
 ---
 
 ## Table of Contents
 
-- [Olory-mini](#olory-mini)
+- [OLORY MINI (Server URL)](#olory-mini-server-url)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Tech Stack](#tech-stack)
@@ -55,8 +55,6 @@ Olory-mini is a lightweight e-commerce backend API built with **Node.js**, **Exp
   - [Authentication \& Authorization](#authentication--authorization)
   - [Middleware](#middleware)
   - [Project Structure](#project-structure)
-  - [Contributing](#contributing)
-  - [License](#license)
   - [Contact](#contact)
 
 ---
@@ -99,7 +97,7 @@ Olory-mini is a lightweight e-commerce backend API built with **Node.js**, **Exp
 
 - Node.js >= 18
 - MySQL database
-- npm or yarn
+- npm or pnpm
 
 ### Installation
 
@@ -273,9 +271,9 @@ Enumerations:
 
 - **Auth Middleware**: Protects routes based on roles.
 - **Validation Middleware**: Validates incoming request bodies using Zod schemas.
+- **File Middleware**: Handles file uploads.
 - **Error Middleware**: Handles API errors and sends appropriate responses.
 - **Not Found Middleware**: Handles unknown routes with 404 responses.
-- **File Middleware**: Handles file uploads for product thumbnails.
 - **CORS** and **Cookie Parser** middleware for HTTP and cookies handling.
 
 ---
@@ -311,25 +309,13 @@ Enumerations:
 
 ---
 
-## Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request. Make sure to follow coding standards and write tests where applicable.
-
----
-
-## License
-
-This project is licensed under the ISC License.
-
----
-
 ## Contact
 
-For questions or support, please open an issue or contact the repository maintainer.
+For questions or support, please open an issue or contact the repository maintainer. <a href="mailto:foysalahmedmin@gamil.com">Email</a>.
 
 ---
 
-**Thank you for using Olory-mini!**
+**Thank you for reading Olory-Mini documentation!**
 
 ```
 
