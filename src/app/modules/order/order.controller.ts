@@ -15,7 +15,7 @@ export const checkout = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-export const getOrders = catchAsync(async (req: Request, res: Response) => {
+export const getOrders = catchAsync(async (_req: Request, res: Response) => {
   const result = await OrderService.getOrders();
 
   sendResponse(res, {

@@ -29,7 +29,7 @@ app.use(
 );
 app.use('/api/v1', authRouter);
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/', (_req: Request, res: Response) => {
   res.send('Welcome to olory-mini server!');
 });
 

@@ -142,7 +142,7 @@ export const signUp = async (payload: TSignUp) => {
 };
 
 export const refreshToken = async (token: string) => {
-  const { email, iat } = verifyToken(token, config.jwt_refresh_secret);
+  const { email } = verifyToken(token, config.jwt_refresh_secret);
 
   const user = await isUserExistByEmail(email);
 

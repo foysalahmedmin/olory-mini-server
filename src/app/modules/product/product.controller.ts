@@ -10,8 +10,7 @@ export const getProducts = catchAsync(async (req: Request, res: Response) => {
     status: 200,
     success: true,
     message: 'Products retrieved successfully',
-    data: result.data,
-    meta: result?.meta,
+    data: result,
   });
 });
 

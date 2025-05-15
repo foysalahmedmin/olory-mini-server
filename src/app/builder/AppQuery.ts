@@ -1,6 +1,6 @@
 type QueryParams = Record<string, any>;
 
-class AppQuery<T> {
+class AppQuery{
   private query: QueryParams;
 
   private where: QueryParams = {};

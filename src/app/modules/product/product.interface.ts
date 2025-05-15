@@ -10,8 +10,6 @@ export interface TProduct {
   rating: number;
   categoryId: number;
   category?: Category;
-  createdAt: Date;
-  updatedAt: Date;
   orderItems?: OrderItem[];
 }
 

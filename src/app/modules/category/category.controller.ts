@@ -3,7 +3,7 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import * as CategoryServices from './category.service';
 
-export const getCategories = catchAsync(async (req: Request, res: Response) => {
+export const getCategories = catchAsync(async (_req: Request, res: Response) => {
   const result = await CategoryServices.getCategories();
   sendResponse(res, {
     status: 200,
@@ -25,7 +25,7 @@ export const getCategory = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const getCategoriesWithProducts = catchAsync(
-  async (req: Request, res: Response) => {
+  async (_req: Request, res: Response) => {
     const result = await CategoryServices.getCategoriesWithProducts();
     sendResponse(res, {
       status: 200,

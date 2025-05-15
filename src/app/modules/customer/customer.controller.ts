@@ -18,7 +18,7 @@ export const createCustomer = catchAsync(
   },
 );
 
-export const getCustomers = catchAsync(async (req: Request, res: Response) => {
+export const getCustomers = catchAsync(async (_req: Request, res: Response) => {
   const result = await CustomerService.getCustomers();
 
   sendResponse(res, {

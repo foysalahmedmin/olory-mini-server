@@ -3,7 +3,7 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import * as UserService from './user.service';
 
-export const getUsers = catchAsync(async (req: Request, res: Response) => {
+export const getUsers = catchAsync(async (_req: Request, res: Response) => {
   const result = await UserService.getUsers();
 
   sendResponse(res, {

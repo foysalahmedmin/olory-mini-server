@@ -7,7 +7,7 @@ export interface TSignUp {
   name: string;
   email: string;
   password: string;
-  role?: 'user' | 'admin';
+  role?: 'user' | 'customer' | 'admin';
 }
 
 export interface TChangePassword {
@@ -29,5 +29,5 @@ export interface TJwtPayload {
   id: number;
   name: string;
   email: string;
-  role: 'user' | 'admin';
+  role: 'user' | 'customer' | 'admin';
 }

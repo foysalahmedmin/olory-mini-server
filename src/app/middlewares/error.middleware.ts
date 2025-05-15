@@ -10,7 +10,7 @@ import handleValidationError from '../errors/handleValidationError';
 import handleZodError from '../errors/handleZodError';
 import { TSources } from '../interfaces/error.interface';
 
-const error: ErrorRequestHandler = (error, req, res, next) => {
+const error: ErrorRequestHandler = (error, _req, res, _next) => {
   let status = 500;
   let message = 'Something went wrong!';
   let sources: TSources = [
@@ -54,7 +54,7 @@ const error: ErrorRequestHandler = (error, req, res, next) => {
     ];
   }
 
-  return res.status(status).json({
+  res.status(status).json({
     success: false,
     status,
     message,
@@ -62,6 +62,8 @@ const error: ErrorRequestHandler = (error, req, res, next) => {
     error,
     stack: config.NODE_ENV === 'development' ? error?.stack : null,
   });
+  return;
 };
+
 
 export default error;

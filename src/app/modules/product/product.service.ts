@@ -1,5 +1,6 @@
+import { Prisma } from '@prisma/client';
 import prisma from '../../../prisma/client';
-import { TProduct, TProductQuery } from './product.interface';
+import { TProductQuery } from './product.interface';
 
 export const getProducts = async (filters: TProductQuery) => {
   const { category, minPrice, maxPrice, rating, search } = filters;
@@ -11,7 +12,7 @@ export const getProducts = async (filters: TProductQuery) => {
         minPrice ? { price: { gte: parseFloat(minPrice) } } : {},
         maxPrice ? { price: { lte: parseFloat(maxPrice) } } : {},
         rating ? { rating: { gte: parseFloat(rating) } } : {},
-        search ? { name: { contains: search, mode: 'insensitive' } } : {},
+        search ? { name: { contains: search, mode: 'insensitive' } as Prisma.StringFilter } : {},
       ],
     },
     include: { category: true },
@@ -25,7 +26,7 @@ export const getProduct = async (id: number) => {
   });
 };
 
-export const createProduct = async (data: TProduct) => {
+export const createProduct = async (data: Prisma.ProductCreateInput) => {
   return await prisma.product.create({ data });
 };
 

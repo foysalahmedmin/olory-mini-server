@@ -1,11 +1,13 @@
+import tseslint from '@typescript-eslint/eslint-plugin';
+import configPrisma from 'eslint-config-prisma';
 import prettier from 'eslint-plugin-prettier';
-import tseslint from 'typescript-eslint';
 
 export default [
   {
     ignores: ['dist/**', 'node_modules/**'],
   },
   ...tseslint.configs.recommendedTypeChecked,
+  configPrisma,
   {
     files: ['**/*.ts', '**/*.js'],
     languageOptions: {
