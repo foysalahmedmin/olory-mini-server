@@ -22,7 +22,7 @@ vercel --prod
 
 -->
 
-# OLORY MINI (<a href="https://olory-mini-server.vercel.app/">Server URL</a>)
+# OLORY MINI (<a href="https://olory-mini-server.vercel.app/">LIVE SERVER</a>)
 
 Olory-mini is a lightweight e-commerce backend API built with **Node.js**, **Express**, **TypeScript**, and **Prisma**. It supports user authentication, product and category management, customer orders, and more, powered by a **MySQL** database.
 
@@ -30,7 +30,7 @@ Olory-mini is a lightweight e-commerce backend API built with **Node.js**, **Exp
 
 ## Table of Contents
 
-- [OLORY MINI (Server URL)](#olory-mini-server-url)
+- [OLORY MINI (LIVE SERVER)](#olory-mini-live-server)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Tech Stack](#tech-stack)
