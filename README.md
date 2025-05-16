@@ -184,6 +184,7 @@ All API endpoints are prefixed with `/api/v1`.
 
 ### Authentication
 
+- `POST /auth/signup` — User sign-up
 - `POST /auth/signin` — User sign-in
 - `POST /auth/refresh-token` — Refresh JWT token
 - `PATCH /auth/change-password` — Change password (authenticated users)
