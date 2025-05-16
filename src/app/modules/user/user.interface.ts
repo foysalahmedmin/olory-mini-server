@@ -4,6 +4,6 @@ export interface TUser {
   email: string;
   password: string;
   role: 'user' | 'customer' | 'admin';
-  status: 'in-progress' | 'blocked';
+  status: 'inProgress' | 'blocked';
   isDeleted: boolean;
 }
