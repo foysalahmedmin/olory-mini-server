@@ -112,9 +112,36 @@ npm install
 Create a `.env` file in the root directory with the following variables:
 
 ```env
-DATABASE_URL="mysql://user:password@host:port/database"
-SESSION_SECRET="your_session_secret"
-PORT=5000
+# Environment
+NODE_ENV=your_environment_here            # e.g., development or production
+
+# Server
+PORT=your_server_port_here                # e.g., 5000
+
+# Database
+DATABASE_URL=your_database_connection_string_here
+
+# Bcrypt
+BCRYPT_SALT_ROUNDS=your_salt_rounds_here
+DEFAULT_PASSWORD=your_default_password_here
+
+# JWT Secrets
+JWT_ACCESS_SECRET=your_jwt_access_secret_here
+JWT_ACCESS_SECRET_EXPIRES_IN=your_jwt_access_token_expiry_here
+
+JWT_REFRESH_SECRET=your_jwt_refresh_secret_here
+JWT_REFRESH_SECRET_EXPIRES_IN=your_jwt_refresh_token_expiry_here
+
+# Session Secrets
+SESSION_SECRET=your_session_secret_here
+
+# Password Reset
+RESET_PASSWORD_UI_LINK=your_password_reset_ui_link_here
+
+# Auth Email (for sending emails)
+AUTH_USER_EMAIL=your_auth_email_here
+AUTH_USER_EMAIL_PASSWORD=your_auth_email_password_here
+
 ```
 
 - `DATABASE_URL`: Your MySQL connection string
