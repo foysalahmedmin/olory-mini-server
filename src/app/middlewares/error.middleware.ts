@@ -1,22 +1,22 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
-import { Prisma } from '@prisma/client';
-import { ErrorRequestHandler } from 'express';
-import { ZodError } from 'zod';
-import AppError from '../builder/AppError';
-import config from '../config';
-import handleDuplicateError from '../errors/handleDuplicateError';
-import handleValidationError from '../errors/handleValidationError';
-import handleZodError from '../errors/handleZodError';
-import { TSources } from '../interfaces/error.interface';
+import { Prisma } from "@prisma/client";
+import { ErrorRequestHandler } from "express";
+import { ZodError } from "zod";
+import AppError from "../builder/AppError";
+import config from "../config";
+import handleDuplicateError from "../errors/handleDuplicateError";
+import handleValidationError from "../errors/handleValidationError";
+import handleZodError from "../errors/handleZodError";
+import { TSources } from "../types/error.type";
 
 const error: ErrorRequestHandler = (error, _req, res, _next) => {
   let status = 500;
-  let message = 'Something went wrong!';
+  let message = "Something went wrong!";
   let sources: TSources = [
     {
-      path: '',
-      message: 'Something went wrong',
+      path: "",
+      message: "Something went wrong",
     },
   ];
 
@@ -40,7 +40,7 @@ const error: ErrorRequestHandler = (error, _req, res, _next) => {
     message = error.message;
     sources = [
       {
-        path: '',
+        path: "",
         message: error?.message,
       },
     ];
@@ -48,7 +48,7 @@ const error: ErrorRequestHandler = (error, _req, res, _next) => {
     message = error.message;
     sources = [
       {
-        path: '',
+        path: "",
         message: error?.message,
       },
     ];
@@ -60,10 +60,9 @@ const error: ErrorRequestHandler = (error, _req, res, _next) => {
     message,
     sources,
     error,
-    stack: config.NODE_ENV === 'development' ? error?.stack : null,
+    stack: config.NODE_ENV === "development" ? error?.stack : null,
   });
   return;
 };
-
 
 export default error;
