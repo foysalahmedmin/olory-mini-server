@@ -1,7 +1,7 @@
-import prisma from '../../../prisma/client';
-import { Customer } from './customer.interface';
+import prisma from "../../../prisma/client";
+import { TCustomer } from "./customer.type";
 
-export const createCustomer = async (userId: number, payload: Customer) => {
+export const createCustomer = async (userId: number, payload: TCustomer) => {
   const customer = await prisma.customer.create({
     data: {
       userId: userId,
@@ -14,7 +14,7 @@ export const createCustomer = async (userId: number, payload: Customer) => {
 
   await prisma.user.update({
     where: { id: userId },
-    data: { role: 'customer' },
+    data: { role: "customer" },
   });
 
   return customer;

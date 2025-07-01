@@ -1,7 +1,6 @@
-import { JwtPayload } from 'jsonwebtoken';
-import { CartItem } from '../modules/cart/cart.interface';
-
-export type TUserRole = 'user' | 'customer' | 'admin';
+import { JwtPayload } from "jsonwebtoken";
+import { TCartItem } from "../modules/cart/cart.type";
+import { TRole } from "../types/role.type";
 
 // Extend Express Request type to include user
 declare global {
@@ -10,7 +9,7 @@ declare global {
       user?: JwtPayload & {
         id: number;
         email: string;
-        role: TUserRole;
+        role: TRole;
       };
     }
   }
@@ -22,8 +21,8 @@ declare global {
 }
 
 // Extend express-session module to include cart in session
-declare module 'express-session' {
+declare module "express-session" {
   interface Session {
-    cart?: CartItem[];
+    cart?: TCartItem[];
   }
 }

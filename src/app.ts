@@ -1,17 +1,17 @@
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import express, { Application, Request, Response } from 'express';
-import session from 'express-session';
-import config from './app/config';
-import error from './app/middlewares/error.middleware';
-import notfound from './app/middlewares/not-found.middleware';
-import authRouter from './app/routes';
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import dotenv from "dotenv";
+import express, { Application, Request, Response } from "express";
+import session from "express-session";
+import config from "./app/config";
+import error from "./app/middlewares/error.middleware";
+import notfound from "./app/middlewares/not-found.middleware";
+import router from "./app/routes";
 
 dotenv.config();
 const app: Application = express();
 
-app.set('trust proxy', 1);
+app.set("trust proxy", 1);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -27,10 +27,10 @@ app.use(
     },
   }),
 );
-app.use('/api/v1', authRouter);
+app.use("/api/v1", router);
 
-app.get('/', (_req: Request, res: Response) => {
-  res.send('Welcome to olory-mini server!');
+app.get("/", (_req: Request, res: Response) => {
+  res.send("Welcome to olory-mini server!");
 });
 
 // Error handle;

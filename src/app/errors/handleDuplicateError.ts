@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import { TErrorResponse, TSources } from "../types/error.type";
+import { TErrorResponse, TSources } from "../types/error-response.type";
 
 const handleDuplicateError = (
   err: Prisma.PrismaClientKnownRequestError,

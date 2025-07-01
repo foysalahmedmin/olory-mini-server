@@ -1,5 +1,5 @@
-export interface CartItem {
+export type TCartItem = {
   productId: number;
   quantity: number;
   price: number;
-}
+};

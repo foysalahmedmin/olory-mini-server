@@ -1,13 +1,13 @@
-import { Order } from '../order/order.interface';
+import { TOrder } from "../order/order.type";
 
-export interface Customer {
+export type TCustomer = {
   id?: number;
   userId?: number;
   name: string;
   email: string;
   phone?: string;
   address?: string;
-  orders?: Order[];
+  orders?: TOrder[];
   createdAt: Date;
   updatedAt: Date;
-}
+};

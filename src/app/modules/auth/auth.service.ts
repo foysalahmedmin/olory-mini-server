@@ -1,9 +1,9 @@
-import bcrypt from 'bcrypt';
-import httpStatus from 'http-status';
-import prisma from '../../../prisma/client';
-import AppError from '../../builder/AppError';
-import config from '../../config';
-import { sendEmail } from '../../utils/sendEmail';
+import bcrypt from "bcrypt";
+import httpStatus from "http-status";
+import prisma from "../../../prisma/client";
+import AppError from "../../builder/AppError";
+import config from "../../config";
+import { sendEmail } from "../../utils/sendEmail";
 import {
   TChangePassword,
   TForgetPassword,
@@ -11,8 +11,8 @@ import {
   TResetPassword,
   TSignIn,
   TSignUp,
-} from './auth.interface';
-import { createToken, isPasswordMatched, verifyToken } from './auth.utils';
+} from "./auth.type";
+import { createToken, isPasswordMatched, verifyToken } from "./auth.utils";
 
 // === Find user by id
 export const isUserExist = async (id: number) => {
@@ -52,19 +52,19 @@ export const isUserExistByEmail = async (email: string) => {
 export const signIn = async (payload: TSignIn) => {
   const user = await isUserExistByEmail(payload.email);
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, 'User not found!');
+    throw new AppError(httpStatus.NOT_FOUND, "User not found!");
   }
 
   if (user?.isDeleted) {
-    throw new AppError(httpStatus.FORBIDDEN, 'User is deleted!');
+    throw new AppError(httpStatus.FORBIDDEN, "User is deleted!");
   }
 
-  if (user?.status === 'blocked') {
-    throw new AppError(httpStatus.FORBIDDEN, 'User is blocked!');
+  if (user?.status === "blocked") {
+    throw new AppError(httpStatus.FORBIDDEN, "User is blocked!");
   }
 
   if (!(await isPasswordMatched(payload?.password, user?.password))) {
-    throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched!');
+    throw new AppError(httpStatus.FORBIDDEN, "Password do not matched!");
   }
 
   const jwtPayload: TJwtPayload = {
@@ -99,11 +99,11 @@ export const signUp = async (payload: TSignUp) => {
     Number(config.bcrypt_salt_rounds),
   );
   payload.password = hashedPassword;
-  payload.role = payload.role || 'user';
+  payload.role = payload.role || "user";
 
   const exist = await isUserExistByEmail(payload.email);
   if (exist) {
-    throw new AppError(httpStatus.CONFLICT, 'User already exists!');
+    throw new AppError(httpStatus.CONFLICT, "User already exists!");
   }
 
   const user = await prisma.user.create({
@@ -147,15 +147,15 @@ export const refreshToken = async (token: string) => {
   const user = await isUserExistByEmail(email);
 
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, 'User not found!');
+    throw new AppError(httpStatus.NOT_FOUND, "User not found!");
   }
 
   if (user?.isDeleted) {
-    throw new AppError(httpStatus.FORBIDDEN, 'User is deleted!');
+    throw new AppError(httpStatus.FORBIDDEN, "User is deleted!");
   }
 
-  if (user?.status === 'blocked') {
-    throw new AppError(httpStatus.FORBIDDEN, 'User is blocked!');
+  if (user?.status === "blocked") {
+    throw new AppError(httpStatus.FORBIDDEN, "User is blocked!");
   }
 
   const jwtPayload: TJwtPayload = {
@@ -181,19 +181,19 @@ export const changePassword = async (payload: TChangePassword) => {
   const user = await isUserExistByEmail(payload.email);
 
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, 'User not found!');
+    throw new AppError(httpStatus.NOT_FOUND, "User not found!");
   }
 
   if (user?.isDeleted) {
-    throw new AppError(httpStatus.NOT_FOUND, 'User is deleted!');
+    throw new AppError(httpStatus.NOT_FOUND, "User is deleted!");
   }
 
-  if (user?.status === 'blocked') {
-    throw new AppError(httpStatus.NOT_FOUND, 'User is blocked!');
+  if (user?.status === "blocked") {
+    throw new AppError(httpStatus.NOT_FOUND, "User is blocked!");
   }
 
   if (!(await isPasswordMatched(payload?.current_password, user?.password))) {
-    throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched!');
+    throw new AppError(httpStatus.FORBIDDEN, "Password do not matched!");
   }
 
   const hashedNewPassword = await bcrypt.hash(
@@ -218,15 +218,15 @@ export const forgetPassword = async (payload: TForgetPassword) => {
   const user = await isUserExistByEmail(payload.email);
 
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, 'User not found!');
+    throw new AppError(httpStatus.NOT_FOUND, "User not found!");
   }
 
   if (user?.isDeleted) {
-    throw new AppError(httpStatus.FORBIDDEN, 'User is deleted!');
+    throw new AppError(httpStatus.FORBIDDEN, "User is deleted!");
   }
 
-  if (user?.status === 'blocked') {
-    throw new AppError(httpStatus.FORBIDDEN, 'User is blocked!');
+  if (user?.status === "blocked") {
+    throw new AppError(httpStatus.FORBIDDEN, "User is blocked!");
   }
 
   const jwtPayload: TJwtPayload = {
@@ -246,8 +246,8 @@ export const forgetPassword = async (payload: TForgetPassword) => {
 
   await sendEmail({
     to: user.email,
-    subject: 'Olory-Mini Password Change Link',
-    text: 'Reset your password within 10 minutes',
+    subject: "Olory-Mini Password Change Link",
+    text: "Reset your password within 10 minutes",
     html: resetUILink,
   });
 
@@ -258,21 +258,21 @@ export const resetPassword = async (payload: TResetPassword, token: string) => {
   const user = await isUserExistByEmail(payload.email);
 
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, 'User not found!');
+    throw new AppError(httpStatus.NOT_FOUND, "User not found!");
   }
 
   if (user?.isDeleted) {
-    throw new AppError(httpStatus.FORBIDDEN, 'User is deleted!');
+    throw new AppError(httpStatus.FORBIDDEN, "User is deleted!");
   }
 
-  if (user?.status === 'blocked') {
-    throw new AppError(httpStatus.FORBIDDEN, 'User is blocked!');
+  if (user?.status === "blocked") {
+    throw new AppError(httpStatus.FORBIDDEN, "User is blocked!");
   }
 
   const { email } = verifyToken(token, config.jwt_access_secret);
 
   if (payload.email !== email) {
-    throw new AppError(httpStatus.FORBIDDEN, 'User is forbidden!');
+    throw new AppError(httpStatus.FORBIDDEN, "User is forbidden!");
   }
 
   const hashedPassword = await bcrypt.hash(

@@ -8,7 +8,7 @@ import config from "../config";
 import handleDuplicateError from "../errors/handleDuplicateError";
 import handleValidationError from "../errors/handleValidationError";
 import handleZodError from "../errors/handleZodError";
-import { TSources } from "../types/error.type";
+import { TSources } from "../types/error-response.type";
 
 const error: ErrorRequestHandler = (error, _req, res, _next) => {
   let status = 500;

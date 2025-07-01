@@ -1,7 +1,7 @@
-import bcrypt from 'bcrypt';
-import jwt, { JwtPayload } from 'jsonwebtoken';
-import { ExpiresIn } from '../../config';
-import { TJwtPayload } from './auth.interface';
+import bcrypt from "bcrypt";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import { ExpiresIn } from "../../config";
+import { TJwtPayload } from "./auth.type";
 
 export const createToken = (
   jwtPayload: Partial<TJwtPayload>,

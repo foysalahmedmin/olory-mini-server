@@ -3,12 +3,12 @@ import httpStatus from "http-status";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import AppError from "../builder/AppError";
 import config from "../config";
-import { TUserRole } from "../interfaces";
-import { TJwtPayload } from "../modules/auth/auth.interface";
 import * as AuthServices from "../modules/auth/auth.service";
+import { TJwtPayload } from "../modules/auth/auth.type";
+import { TRole } from "../types/role.type";
 import catchAsync from "../utils/catchAsync";
 
-const auth = (...requiredRoles: TUserRole[]) => {
+const auth = (...roles: TRole[]) => {
   return catchAsync(
     async (req: Request, _res: Response, next: NextFunction) => {
       const token = req.headers.authorization;
@@ -41,7 +41,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
         throw new AppError(httpStatus.FORBIDDEN, "User is blocked!");
       }
 
-      if (requiredRoles && !requiredRoles.includes(role)) {
+      if (roles && !roles.includes(role)) {
         throw new AppError(
           httpStatus.UNAUTHORIZED,
           "You do not have the necessary permissions to access this resource.",

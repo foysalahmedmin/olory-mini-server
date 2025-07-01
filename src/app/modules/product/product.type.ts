@@ -1,7 +1,7 @@
-import { Category } from '../category/category.interface';
-import { OrderItem } from '../order/order.interface';
+import { TCategory } from "../category/category.type";
+import { TOrderItem } from "../order/order.type";
 
-export interface TProduct {
+export type TProduct = {
   id: number;
   name: string;
   thumbnail?: string;
@@ -9,14 +9,14 @@ export interface TProduct {
   price: number;
   rating: number;
   categoryId: number;
-  category?: Category;
-  orderItems?: OrderItem[];
-}
+  category?: TCategory;
+  orderItems?: TOrderItem[];
+};
 
-export interface TProductQuery {
+export type TProductQuery = {
   category?: string;
   minPrice?: string;
   maxPrice?: string;
   rating?: string;
   search?: string;
-}
+};
