@@ -22,7 +22,7 @@ vercel --prod
 
 -->
 
-# OLORY MINI (<a href="https://olory-mini-server.vercel.app/">Server URL</a>)
+# OLORY MINI (<a href="https://olory-mini-server.vercel.app/">LIVE SERVER</a>)
 
 Olory-mini is a lightweight e-commerce backend API built with **Node.js**, **Express**, **TypeScript**, and **Prisma**. It supports user authentication, product and category management, customer orders, and more, powered by a **MySQL** database.
 
@@ -30,7 +30,7 @@ Olory-mini is a lightweight e-commerce backend API built with **Node.js**, **Exp
 
 ## Table of Contents
 
-- [OLORY MINI (Server URL)](#olory-mini-server-url)
+- [OLORY MINI (LIVE SERVER)](#olory-mini-live-server)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Tech Stack](#tech-stack)
@@ -112,9 +112,36 @@ npm install
 Create a `.env` file in the root directory with the following variables:
 
 ```env
-DATABASE_URL="mysql://user:password@host:port/database"
-SESSION_SECRET="your_session_secret"
-PORT=5000
+# Environment
+NODE_ENV=your_environment_here            # e.g., development or production
+
+# Server
+PORT=your_server_port_here                # e.g., 5000
+
+# Database
+DATABASE_URL=your_database_connection_string_here
+
+# Bcrypt
+BCRYPT_SALT_ROUNDS=your_salt_rounds_here
+DEFAULT_PASSWORD=your_default_password_here
+
+# JWT Secrets
+JWT_ACCESS_SECRET=your_jwt_access_secret_here
+JWT_ACCESS_SECRET_EXPIRES_IN=your_jwt_access_token_expiry_here
+
+JWT_REFRESH_SECRET=your_jwt_refresh_secret_here
+JWT_REFRESH_SECRET_EXPIRES_IN=your_jwt_refresh_token_expiry_here
+
+# Session Secrets
+SESSION_SECRET=your_session_secret_here
+
+# Password Reset
+RESET_PASSWORD_UI_LINK=your_password_reset_ui_link_here
+
+# Auth Email (for sending emails)
+AUTH_USER_EMAIL=your_auth_email_here
+AUTH_USER_EMAIL_PASSWORD=your_auth_email_password_here
+
 ```
 
 - `DATABASE_URL`: Your MySQL connection string
@@ -184,6 +211,7 @@ All API endpoints are prefixed with `/api/v1`.
 
 ### Authentication
 
+- `POST /auth/signup` — User sign-up
 - `POST /auth/signin` — User sign-in
 - `POST /auth/refresh-token` — Refresh JWT token
 - `PATCH /auth/change-password` — Change password (authenticated users)

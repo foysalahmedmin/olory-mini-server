@@ -12,7 +12,7 @@ export const signupSchema = z.object({
     name: z.string(),
     email: z.string().email(),
     password: z.string().min(6).max(12),
-    role: z.enum(['user', 'admin']).optional(),
+    role: z.enum(['user', 'customer', 'admin']).default('user').optional(),
   }),
 });
 

@@ -7,8 +7,8 @@ export const userSchema = z.object({
     password: z.string().min(6).max(12),
     role: z.enum(['user', 'customer', 'admin']).default('user').optional(),
     status: z
-      .enum(['in-progress', 'blocked'])
-      .default('in-progress')
+      .enum(['inProgress', 'blocked'])
+      .default('inProgress')
       .optional(),
     isDeleted: z.boolean().optional(),
   }),
