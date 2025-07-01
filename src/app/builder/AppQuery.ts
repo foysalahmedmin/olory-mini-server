@@ -1,6 +1,6 @@
 type QueryParams = Record<string, any>;
 
-class AppQuery{
+class AppQuery {
   private query: QueryParams;
 
   private where: QueryParams = {};
@@ -19,7 +19,7 @@ class AppQuery{
 
     if (search) {
       this.where.OR = fields.map((field) => ({
-        [field]: { contains: search, mode: 'insensitive' },
+        [field]: { contains: search, mode: "insensitive" },
       }));
     }
 
@@ -28,7 +28,14 @@ class AppQuery{
 
   filter() {
     const query = { ...this.query };
-    const excludeFields = ['search', 'sort', 'limit', 'page', 'fields', 'include'];
+    const excludeFields = [
+      "search",
+      "sort",
+      "limit",
+      "page",
+      "fields",
+      "include",
+    ];
     excludeFields.forEach((field) => delete query[field]);
 
     this.where = {
@@ -42,13 +49,13 @@ class AppQuery{
   sort() {
     const sortParam = this.query.sort as string;
     if (sortParam) {
-      this.orderBy = sortParam.split(',').map((field) => {
-        const direction = field.startsWith('-') ? 'desc' : 'asc';
-        const fieldName = field.replace(/^-/, '');
+      this.orderBy = sortParam.split(",").map((field) => {
+        const direction = field.startsWith("-") ? "desc" : "asc";
+        const fieldName = field.replace(/^-/, "");
         return { [fieldName]: direction };
       });
     } else {
-      this.orderBy = [{ createdAt: 'desc' }];
+      this.orderBy = [{ createdAt: "desc" }];
     }
 
     return this;
@@ -67,11 +74,14 @@ class AppQuery{
     const fields = this.query.fields as string;
 
     if (fields) {
-      const fieldsArr = fields.split(',');
-      this.select = fieldsArr.reduce((acc, field) => {
-        acc[field] = true;
-        return acc;
-      }, {} as Record<string, boolean>);
+      const fieldsArr = fields.split(",");
+      this.select = fieldsArr.reduce(
+        (acc, field) => {
+          acc[field] = true;
+          return acc;
+        },
+        {} as Record<string, boolean>,
+      );
     }
 
     return this;
@@ -79,15 +89,18 @@ class AppQuery{
 
   relations() {
     const relations = this.query.relations as string;
-    
+
     if (relations) {
-        const relationsArr = relations.split(',');
-        this.include = relationsArr.reduce((acc, field) => {
+      const relationsArr = relations.split(",");
+      this.include = relationsArr.reduce(
+        (acc, field) => {
           acc[field] = true;
           return acc;
-        }, {} as Record<string, boolean>);
-      }
-  
+        },
+        {} as Record<string, boolean>,
+      );
+    }
+
     return this;
   }
 
@@ -104,8 +117,8 @@ class AppQuery{
     }
 
     if (this.include) {
-        query.include = this.include;
-      }
+      query.include = this.include;
+    }
 
     return query;
   }
